@@ -1,20 +1,21 @@
 package edu.kata.task231.controller;
 
+import edu.kata.task231.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
+//@RequestMapping
 public class IndexController {
 
-    @GetMapping(value = "/")
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
     public String index(ModelMap modelMap) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Index page");
-        modelMap.addAttribute("messages", messages);
+        modelMap.addAttribute("userList", userService.findAll());
         return "index";
     }
 }

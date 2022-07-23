@@ -2,9 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User list</title>
 </head>
 <body>
-index
+
+<h1>User list</h1>
+
+<a href="/users/create">Create user</a>
+<br/>
+<br/>
+
+<div th:if="${userList.isEmpty()}">
+    <div>No data</div>
+</div>
+
+<div th:if="${!userList.isEmpty()}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Last name</th>
+            <th>Middle name</th>
+            <th>-</th>
+            <th>-</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user: ${userList}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.middleName}"></td>
+            <td><a th:href="@{/users/update/${user.id}}">update</a></td>
+            <td><a th:href="@{/users/remove/${user.id}}">remove</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
