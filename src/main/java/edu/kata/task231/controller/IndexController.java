@@ -13,7 +13,7 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping({"/", "/index"})
     public String index(ModelMap modelMap) {
         modelMap.addAttribute("userList", userService.findAll());
         return "index";

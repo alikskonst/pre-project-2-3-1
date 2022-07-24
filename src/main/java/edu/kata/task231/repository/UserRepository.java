@@ -14,10 +14,7 @@ public class UserRepository {
     private EntityManager entityManager;
 
     public User findOne(Long id) {
-        return (User) entityManager
-                .createQuery("SELECT usr FROM User usr WHERE usr.id = ?1")
-                .setParameter(1, id)
-                .getSingleResult();
+        return entityManager.find(User.class, id);
     }
 
     public List<User> findAll() {
@@ -25,16 +22,17 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        entityManager.getTransaction().begin();
-        user = entityManager.merge(user);
-        entityManager.getTransaction().commit();
-        return user;
+        if (user.getId() == null) {
+            entityManager.persist(user);
+            entityManager.flush();
+            return user;
+        } else {
+            return entityManager.merge(user);
+        }
     }
 
     public void remove(Long id) {
-        entityManager.getTransaction().begin();
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
-        entityManager.getTransaction().commit();
     }
 }
