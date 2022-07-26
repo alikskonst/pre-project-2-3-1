@@ -1,6 +1,5 @@
 package edu.kata.task231.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +23,11 @@ import java.util.Properties;
 @ComponentScan(value = "edu.kata.task231")
 public class HibernateConfig {
 
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
+
+    public HibernateConfig(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public DataSource dataSource() {

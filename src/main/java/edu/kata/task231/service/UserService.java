@@ -2,7 +2,6 @@ package edu.kata.task231.service;
 
 import edu.kata.task231.model.User;
 import edu.kata.task231.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,8 +11,11 @@ import java.util.List;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User findOne(Long id) {
         return userRepository.findOne(id);

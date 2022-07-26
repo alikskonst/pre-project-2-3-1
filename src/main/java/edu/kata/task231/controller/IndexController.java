@@ -1,7 +1,6 @@
 package edu.kata.task231.controller;
 
 import edu.kata.task231.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 //@RequestMapping
 public class IndexController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public IndexController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping({"/", "/index"})
     public String index(ModelMap modelMap) {

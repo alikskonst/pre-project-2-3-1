@@ -2,7 +2,6 @@ package edu.kata.task231.controller;
 
 import edu.kata.task231.model.User;
 import edu.kata.task231.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 public class UserManageControllerImpl {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserManageControllerImpl(UserService userService) {
+        this.userService = userService;
+    }
 
     // переход
     @GetMapping("/create")
